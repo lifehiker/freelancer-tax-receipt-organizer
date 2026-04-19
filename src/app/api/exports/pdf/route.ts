@@ -22,7 +22,7 @@ function groupBy<T>(items: T[], key: keyof T): Record<string, T[]> {
 function sumCents<T extends { amountCents: number }>(items: T[]): number {
   return items.reduce((s, e) => s + e.amountCents, 0);
 }
-export async function GET(_req: Request) {
+export async function GET() {
   const session = await auth();
   if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 

@@ -27,7 +27,7 @@ export default function OnboardingPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, formState: {} } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: { filingStatus: "single", stateCode: "CA", expectedAnnualIncome: 0, deductionsEstimate: 0, taxYear: 2024, priorPayments: 0 },
   });

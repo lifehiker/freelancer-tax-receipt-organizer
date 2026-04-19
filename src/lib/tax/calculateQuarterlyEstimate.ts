@@ -36,7 +36,6 @@ export function calculateQuarterlyEstimate(params: {
     : 25;
 
   const today = new Date();
-  const year = today.getFullYear();
   const dueDates = TAX_CONFIG_2024.quarterlyDueDates;
   let nextDueDate = dueDates[dueDates.length - 1].dueDate;
   let nextQuarter = dueDates[dueDates.length - 1].quarter;

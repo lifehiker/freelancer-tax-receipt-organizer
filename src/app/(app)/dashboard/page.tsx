@@ -3,8 +3,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { calculateQuarterlyEstimate } from "@/lib/tax/calculateQuarterlyEstimate";
 import { formatCents } from "@/lib/utils";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import type { FilingStatus } from "@/lib/tax/config/2024";
 
@@ -29,8 +28,6 @@ export default async function DashboardPage() {
     });
   }
 
-  const totalIncome = incomeEntries.reduce((sum, e) => sum + e.amountCents, 0);
-  const totalExpenses = expenses.reduce((sum, e) => sum + e.amountCents, 0);
 
   return (
     <div className="space-y-8">
