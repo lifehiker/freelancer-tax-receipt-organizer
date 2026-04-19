@@ -1,0 +1,110 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String?
+  email         String         @unique
+  password      String?
+  image         String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  taxProfile    TaxProfile?
+  incomeEntries IncomeEntry[]
+  expenses      ExpenseEntry[]
+  receipts      Receipt[]
+  subscription  Subscription?
+  exportJobs    ExportJob[]
+}
+
+model TaxProfile {
+  id                      String   @id @default(cuid())
+  userId                  String   @unique
+  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  filingStatus            String   @default("single")
+  stateCode               String   @default("CA")
+  expectedAnnualIncomeCents Int    @default(0)
+  deductionsEstimateCents Int      @default(0)
+  taxYear                 Int      @default(2024)
+  priorPaymentsCents      Int      @default(0)
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+}
+
+model IncomeEntry {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  source      String
+  amountCents Int
+  receivedAt  DateTime
+  notes       String?
+  category    String   @default("freelance")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ExpenseEntry {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vendor      String
+  category    String
+  amountCents Int
+  spentAt     DateTime
+  notes       String?
+  receiptId   String?
+  receipt     Receipt? @relation(fields: [receiptId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Receipt {
+  id          String         @id @default(cuid())
+  userId      String
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fileUrl     String
+  fileName    String
+  mimeType    String
+  vendor      String?
+  totalCents  Int?
+  receiptDate DateTime?
+  ocrStatus   String         @default("pending")
+  rawOcrJson  String?
+  expenses    ExpenseEntry[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model Subscription {
+  id                   String    @id @default(cuid())
+  userId               String    @unique
+  user                 User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stripeCustomerId     String?
+  stripeSubscriptionId String?
+  plan                 String    @default("free")
+  status               String    @default("active")
+  currentPeriodEnd     DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+}
+
+model ExportJob {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String
+  year      Int
+  quarter   Int?
+  status    String   @default("pending")
+  fileUrl   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
