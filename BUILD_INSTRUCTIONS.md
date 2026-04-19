@@ -5,7 +5,7 @@
 - **App Name:** freelancer-tax-receipt-organizer
 - **Repository:** freelancer-tax-receipt-organizer
 - **Tech Stack:** Next.js 15 (App Router) + TypeScript + Tailwind + shadcn/ui
-- **Description:** A lightweight finance tool for freelancers, creators, gig workers, and small landlords to estimate taxes, track deductions, and export clean records for filing or bookkeeping. It combines quick 1099 tax planning with fast receipt capture and CSV/PDF outputs.
+- **Description:** freelancer-tax-receipt-organizer
 
 ---
 
