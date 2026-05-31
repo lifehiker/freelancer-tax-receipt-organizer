@@ -7,11 +7,17 @@ export function middleware(request: NextRequest) {
   // normalises/redirects it to the collapsed URL, which makes the health
   // checker flag two routes rendering the same page. Return 404 for those
   // invalid paths so the normalisation redirect never fires.
-  return NextResponse.notFound();
+  //
+  // The check is done in the function body (not the matcher) because
+  // Next.js 15's path-to-regexp parser does not reliably handle character
+  // classes like [^)] inside matcher strings.
+  if (/^\/\([^)]+\)/.test(request.nextUrl.pathname)) {
+    return NextResponse.notFound();
+  }
 }
 
 export const config = {
-  // Match any path whose first segment is a parenthesised route-group name,
-  // e.g. /(marketing), /(marketing)/for-creators, /(app)/receipts, etc.
-  matcher: ["/\\([^)]+\\)", "/\\([^)]+\\)/(.*)"],
+  // Exclude only Next.js internals; everything else (including literal
+  // parenthesised route-group paths) must reach the middleware function.
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };
