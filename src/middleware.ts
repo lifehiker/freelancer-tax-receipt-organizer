@@ -12,7 +12,7 @@ export function middleware(request: NextRequest) {
   // Next.js 15's path-to-regexp parser does not reliably handle character
   // classes like [^)] inside matcher strings.
   if (/^\/\([^)]+\)/.test(new URL(request.url).pathname)) {
-    return NextResponse.notFound();
+    return new NextResponse(null, { status: 404 });
   }
 }
 
