@@ -11,7 +11,7 @@ export function middleware(request: NextRequest) {
   // The check is done in the function body (not the matcher) because
   // Next.js 15's path-to-regexp parser does not reliably handle character
   // classes like [^)] inside matcher strings.
-  if (/^\/\([^)]+\)/.test(new URL(request.url).pathname)) {
+  if (/^\/\([^)]+\)/.test(decodeURIComponent(new URL(request.url).pathname))) {
     return new NextResponse(null, { status: 404 });
   }
 }
