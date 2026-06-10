@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import MarketingLayout from "./(marketing)/layout";
+import MarketingLayout from "@/components/marketing-layout";
 
 export const metadata: Metadata = {
   title: "FreelanceTaxKit - 1099 Tax Estimates and Receipt Organizer",
