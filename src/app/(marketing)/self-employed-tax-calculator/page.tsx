@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { TaxCalculatorForm } from "@/components/calculator/tax-calculator-form";
 import Link from "next/link";
+import MarketingLayout from "@/components/marketing-layout";
 
 export const metadata: Metadata = {
   title: "Self-Employed Tax Calculator - Free 1099 Estimator | FreelanceTaxKit",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 
 export default function SelfEmployedTaxCalculatorPage() {
   return (
+    <MarketingLayout>
     <div className="py-12">
       <div className="max-w-3xl mx-auto px-4">
         <div className="text-center mb-10">
@@ -26,5 +28,6 @@ export default function SelfEmployedTaxCalculatorPage() {
         <p className="text-xs text-slate-500 mt-6">Disclaimer: This calculator provides estimates for informational purposes only, not tax advice.</p>
       </div>
     </div>
+    </MarketingLayout>
   );
 }

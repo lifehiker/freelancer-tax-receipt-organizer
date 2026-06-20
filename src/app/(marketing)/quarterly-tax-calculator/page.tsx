@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { TaxCalculatorForm } from "@/components/calculator/tax-calculator-form";
 import Link from "next/link";
+import MarketingLayout from "@/components/marketing-layout";
 
 export const metadata: Metadata = {
   title: "Quarterly Tax Calculator for Freelancers | FreelanceTaxKit",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 
 export default function QuarterlyTaxCalculatorPage() {
   return (
+    <MarketingLayout>
     <div className="py-12">
       <div className="max-w-3xl mx-auto px-4">
         <div className="text-center mb-10">
@@ -32,5 +34,6 @@ export default function QuarterlyTaxCalculatorPage() {
         </div>
       </div>
     </div>
+    </MarketingLayout>
   );
 }

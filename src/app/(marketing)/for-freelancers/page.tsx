@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import MarketingLayout from "@/components/marketing-layout";
 
 export const metadata: Metadata = {
   title: "Tax Estimator for Freelancers | FreelanceTaxKit",
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
 
 export default function ForFreelancersPage() {
   return (
+    <MarketingLayout>
     <div className="py-12">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-16">
@@ -28,5 +30,6 @@ export default function ForFreelancersPage() {
         </div>
       </div>
     </div>
+    </MarketingLayout>
   );
 }
